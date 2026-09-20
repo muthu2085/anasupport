@@ -1,0 +1,17 @@
+# OS / editor
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+*.swp
+.vscode/
+.idea/
+
+# OneDrive conflict copies
+*-Copy.*
+*conflicted copy*
+
+# Local build or tooling output
+node_modules/
+dist/
+.cache/

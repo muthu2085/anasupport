@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" role="img" aria-label="ANA">
+  <defs>
+    <linearGradient id="gG" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#046B2E"/><stop offset=".55" stop-color="#17A84D"/><stop offset="1" stop-color="#8ED96B"/>
+    </linearGradient>
+    <linearGradient id="gS" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#6F7F8B"/><stop offset=".5" stop-color="#E7EEF3"/><stop offset="1" stop-color="#93A4B1"/>
+    </linearGradient>
+    <linearGradient id="gB" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#083F78"/><stop offset=".55" stop-color="#1685D0"/><stop offset="1" stop-color="#57C4F5"/>
+    </linearGradient>
+    <linearGradient id="gR1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#17A84D"/><stop offset=".42" stop-color="#D8E2E9"/><stop offset=".72" stop-color="#9FB0BC"/><stop offset="1" stop-color="#1685D0"/>
+    </linearGradient>
+    <linearGradient id="gR2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0B7A38"/><stop offset=".45" stop-color="#2E6FA8"/><stop offset="1" stop-color="#0B4F91"/>
+    </linearGradient>
+  </defs>
+
+  <g class="lg-ribbon">
+    <path fill="url(#gR1)" d="M2 54C64 12 176-6 298 12 176 14 66 32 10 60Z"/>
+    <path fill="url(#gR2)" d="M64 62C132 28 218 24 296 32 220 40 134 52 70 70Z"/>
+  </g>
+
+  <g class="lg-word">
+    <path fill="url(#gG)" fill-rule="evenodd" d="M0 200 34 60h22l34 140H64l-7-28H33l-7 28ZM39 146h12l-6-40Z"/>
+    <path fill="url(#gS)" d="M100 200V60h26l38 86V60h26v140h-26l-38-86v86Z"/>
+    <path fill="url(#gB)" fill-rule="evenodd" d="M200 200 234 60h22l34 140h-26l-7-28h-24l-7 28ZM239 146h12l-6-40Z"/>
+  </g>
+</svg>
