@@ -360,6 +360,17 @@ body.cur-hot .cursor-ring{width:52px;height:52px;margin:-26px 0 0 -26px;backgrou
 .ph--natural{aspect-ratio:auto;background:transparent}
 .ph.ph--natural img{width:100%;height:auto;object-fit:contain;filter:none;transform:none}
 .ph.ph--natural.is-empty{aspect-ratio:3/4}
+
+/* ---------- video --------------------------------------------------------
+   founder-video.mp4 is 478x850 (portrait), so it is capped rather than run
+   full column width. aspect-ratio reserves the box before metadata loads. */
+.vid-frame{width:100%;max-width:360px}
+.vid{
+  display:block;width:100%;height:auto;aspect-ratio:478/850;
+  border-radius:var(--r-lg);background:var(--dark);
+  box-shadow:0 34px 64px -46px rgba(13,27,38,.55)
+}
+@media(max-width:900px){.vid-frame{max-width:320px;margin-inline:auto}}
 .ph__note{display:none}
 .ph.is-empty{
   background:
@@ -407,7 +418,7 @@ body.cur-hot .cursor-ring{width:52px;height:52px;margin:-26px 0 0 -26px;backgrou
 .marq__t span{
   display:flex;align-items:center;gap:.7em;white-space:nowrap;padding-inline:.85em;
   font-family:var(--f-head);font-weight:500;letter-spacing:-.01em;
-  font-size:clamp(.95rem,1.4vw,1.15rem);color:var(--soft);
+  font-size:clamp(.95rem,1.4vw,1.15rem);color:var(--blue);
 }
 .marq__t span i{width:5px;height:5px;flex:none;border-radius:50%;background:var(--ribbon)}
 
