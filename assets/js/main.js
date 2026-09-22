@@ -458,6 +458,53 @@
       sync();
     }
 
+    /* Server-side validation feedback. The PHP endpoint answers 422 with
+       {message, errors:{field:reason}}; paint those onto the matching fields. */
+    function clearErrors(form) {
+      $$('.fld.is-err', form).forEach(function (f) { f.classList.remove('is-err'); });
+      $$('.fld__err', form).forEach(function (e) { e.remove(); });
+      var sum = $('.form__err', form);
+      if (sum) sum.remove();
+    }
+
+    function fieldFor(form, name) {
+      var input = form.querySelector('[name="' + name + '"], [name="' + name + '[]"]');
+      return input ? input.closest('.fld') : null;
+    }
+
+    function showErrors(form, errors, message) {
+      var first = null;
+
+      if (errors) {
+        Object.keys(errors).forEach(function (name) {
+          var fld = fieldFor(form, name);
+          if (!fld) return;
+          fld.classList.add('is-err');
+          var msg = document.createElement('span');
+          msg.className = 'fld__err';
+          msg.setAttribute('role', 'alert');
+          msg.textContent = errors[name];
+          fld.appendChild(msg);
+          if (!first) first = fld;
+        });
+      }
+
+      if (message) {
+        var sum = document.createElement('p');
+        sum.className = 'form__err';
+        sum.setAttribute('role', 'alert');
+        sum.textContent = message;
+        form.insertBefore(sum, form.firstChild);
+        if (!first) first = sum;
+      }
+
+      if (first) {
+        scrollToEl(first);
+        var focusable = $('input, select, textarea', first);
+        if (focusable) focusable.focus({ preventScroll: true });
+      }
+    }
+
     $$('form[data-form]').forEach(function (form) {
       form.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -478,15 +525,25 @@
         };
 
         if (endpoint) {
+          var label = btn ? $('span', btn).textContent : '';
           if (btn) { btn.disabled = true; $('span', btn).textContent = 'Sending…'; }
+          clearErrors(form);
+
           fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
             .then(function (r) {
-              if (!r.ok) throw new Error('bad status');
-              succeed();
+              return r.json()
+                .catch(function () { return {}; })
+                .then(function (j) { return { ok: r.ok, body: j }; });
+            })
+            .then(function (res) {
+              if (res.ok) { succeed(); return; }
+              if (btn) { btn.disabled = false; $('span', btn).textContent = label || 'Try again'; }
+              showErrors(form, res.body.errors, res.body.message);
             })
             .catch(function () {
-              if (btn) { btn.disabled = false; $('span', btn).textContent = 'Try again'; }
-              alert('Sorry — that did not go through. Please email admin@anasupport.biz instead.');
+              if (btn) { btn.disabled = false; $('span', btn).textContent = label || 'Try again'; }
+              showErrors(form, null,
+                'We could not reach the server. Please email admin@anasupport.biz instead.');
             });
           return;
         }
