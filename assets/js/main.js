@@ -583,7 +583,7 @@
       .from($$('.hero__stats div', hero), { y: 16, opacity: 0, duration: .7, stagger: .06 }, .58)
       .from($$('.hero__art'), { y: 34, opacity: 0, duration: 1.1 }, .2)
       .from($$('.hero__chip'), { y: 18, opacity: 0, duration: .8 }, .8)
-      .from($$('.hdr__in > *'), { y: -14, opacity: 0, duration: .6, stagger: .07 }, .1);
+      .from($$('.hdr__in > *'), { y: -14, opacity: 0, duration: .6, stagger: .07, clearProps: 'transform' }, .1);
   }
 
   /* ------------------------------------------------------------- kickoff */

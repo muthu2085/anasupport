@@ -231,7 +231,10 @@ body.cur-hot .cursor-ring{width:52px;height:52px;margin:-26px 0 0 -26px;backgrou
 .hdr.is-hidden{transform:translateY(-102%)}
 
 .brand{display:flex;align-items:center;gap:11px;flex:none}
-.brand__mark{width:clamp(64px,6vw,86px);height:auto}
+/* anasupport-logo.jpg is 231x84 (2.75:1). The old mark was 1.5:1, so the same
+   width would render this one about half as tall — widened to keep the ANA
+   letters at a comparable size. */
+.brand__mark{width:clamp(96px,9vw,118px);height:auto}
 .brand__txt{display:none;font-size:.62rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--soft);line-height:1.55}
 @media(min-width:1140px){.brand__txt{display:block}}
 
@@ -265,11 +268,19 @@ body.cur-hot .cursor-ring{width:52px;height:52px;margin:-26px 0 0 -26px;backgrou
 .sub a:hover{background:var(--tint);padding-left:18px}
 
 .hdr__ig{
-  display:grid;place-items:center;width:42px;height:42px;flex:none;
+  display:grid;place-items:center;align-self:center;flex:none;line-height:0;
+  width:42px;height:42px;               /* mobile: match .burger */
   border:1px solid var(--line-2);border-radius:50%;background:#fff;color:var(--ink);
   transition:color .3s,border-color .3s,background .3s,transform .3s var(--ease)
 }
-.hdr__ig svg{width:18px;height:18px}
+.hdr__ig svg{display:block;width:18px;height:18px}
+/* On desktop the burger is gone and the CTA pill sets the line. .btn--sm computes
+   to ~34.5px tall, so shrink the circle to sit level with it instead of
+   overhanging the row. */
+@media(min-width:1024px){
+  .hdr__ig{width:35px;height:35px}
+  .hdr__ig svg{width:16px;height:16px}
+}
 .hdr__ig:hover{color:var(--blue);border-color:var(--blue);background:var(--tint);transform:translateY(-2px)}
 .hdr__cta{display:none}
 @media(min-width:1024px){.hdr__cta{display:inline-flex}}
@@ -344,6 +355,11 @@ body.cur-hot .cursor-ring{width:52px;height:52px;margin:-26px 0 0 -26px;backgrou
 .ph--5x6{aspect-ratio:5/6}
 .ph--wide{aspect-ratio:21/9}
 .ph--tall{aspect-ratio:3/4}
+/* natural: show the file exactly as uploaded — no crop, no filter, no drift.
+   Doubled .ph.ph--natural so it outranks the .ph img rules further down. */
+.ph--natural{aspect-ratio:auto;background:transparent}
+.ph.ph--natural img{width:100%;height:auto;object-fit:contain;filter:none;transform:none}
+.ph.ph--natural.is-empty{aspect-ratio:3/4}
 .ph__note{display:none}
 .ph.is-empty{
   background:
@@ -583,7 +599,10 @@ body.cur-hot .cursor-ring{width:52px;height:52px;margin:-26px 0 0 -26px;backgrou
 .ftr li+li{margin-top:8px}
 .ftr a{font-size:.9rem;color:var(--on-dark-soft);transition:color .3s,padding-left .3s var(--ease)}
 .ftr a:hover{color:#fff;padding-left:5px}
-.ftr .brand__mark{filter:brightness(1.12)}
+/* JPEG has no alpha, so on the dark footer the logo's white background shows.
+   Put it on an intentional white plate rather than letting it look broken.
+   Swap in a transparent PNG/SVG and this rule can go. */
+.ftr .brand__mark{background:#fff;padding:8px 12px;border-radius:10px}
 .social{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
 .social a{
   display:inline-flex;align-items:center;gap:8px;padding:9px 14px;
