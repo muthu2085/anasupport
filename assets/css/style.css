@@ -267,29 +267,42 @@ body.cur-hot .cursor-ring{width:52px;height:52px;margin:-26px 0 0 -26px;backgrou
 .sub a small{display:block;font-size:.72rem;font-weight:400;color:var(--soft);margin-top:2px}
 .sub a:hover{background:var(--tint);padding-left:18px}
 
-.hdr__ig{
-  display:grid;place-items:center;align-self:center;flex:none;line-height:0;
-  width:42px;height:42px;               /* mobile: match .burger */
-  border:1px solid var(--line-2);border-radius:50%;background:#fff;color:var(--ink);
-  transition:color .3s,border-color .3s,background .3s,transform .3s var(--ease)
-}
-.hdr__ig svg{display:block;width:18px;height:18px}
-/* On desktop the burger is gone and the CTA pill sets the line. .btn--sm computes
-   to ~34.5px tall, so shrink the circle to sit level with it instead of
-   overhanging the row. */
+/* Desktop only — on mobile the drawer already carries an Instagram link, so a
+   second one in the header is redundant and crowds the burger. Sized to 35px
+   to sit level with the .btn--sm CTA pill (~34.5px tall) beside it. */
+.hdr__ig{display:none}
 @media(min-width:1024px){
-  .hdr__ig{width:35px;height:35px}
-  .hdr__ig svg{width:16px;height:16px}
+  .hdr__ig{
+    display:grid;place-items:center;align-self:center;flex:none;line-height:0;
+    width:35px;height:35px;
+    border:1px solid var(--line-2);border-radius:50%;background:#fff;color:var(--ink);
+    transition:color .3s,border-color .3s,background .3s,transform .3s var(--ease)
+  }
+  .hdr__ig svg{display:block;width:16px;height:16px}
+  .hdr__ig:hover{color:var(--blue);border-color:var(--blue);background:var(--tint);transform:translateY(-2px)}
 }
-.hdr__ig:hover{color:var(--blue);border-color:var(--blue);background:var(--tint);transform:translateY(-2px)}
 .hdr__cta{display:none}
 @media(min-width:1024px){.hdr__cta{display:inline-flex}}
-.burger{display:grid;place-items:center;gap:5px;width:42px;height:42px;flex:none;border:1px solid var(--line-2);border-radius:50%;background:#fff;cursor:pointer}
+.burger{
+  display:grid;place-items:center;gap:5px;width:44px;height:44px;flex:none;
+  border:1px solid var(--line-2);border-radius:50%;background:#fff;cursor:pointer;
+  transition:border-color .3s,background .3s,transform .3s var(--ease)
+}
+.burger:hover,.burger:focus-visible{border-color:var(--blue);background:var(--tint)}
+.burger:active{transform:scale(.94)}
 @media(min-width:1024px){.burger{display:none}}
-.burger i{display:block;width:16px;height:1.5px;background:var(--ink);transition:transform .38s var(--ease),opacity .28s}
-.burger.is-on i:nth-child(1){transform:translateY(3.25px) rotate(45deg)}
-.burger.is-on i:nth-child(2){opacity:0}
-.burger.is-on i:nth-child(3){transform:translateY(-3.25px) rotate(-45deg)}
+/* 2px bar + 5px gap puts the bar centres exactly 7px apart, so the outer two
+   must travel 7px to meet in the middle and form a true X. (The old rule moved
+   them 3.25px against a 6.5px gap, so the diagonals never met.) */
+.burger i{
+  display:block;width:19px;height:2px;border-radius:2px;background:var(--ink);
+  transition:transform .4s var(--ease),opacity .2s var(--ease),width .3s var(--ease)
+}
+.burger:hover i{background:var(--blue)}
+.burger.is-on i:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.is-on i:nth-child(2){opacity:0;width:0}
+.burger.is-on i:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.burger.is-on:hover i{background:var(--ink)}
 
 .drawer{
   position:fixed;inset:0;z-index:890;background:#fff;
